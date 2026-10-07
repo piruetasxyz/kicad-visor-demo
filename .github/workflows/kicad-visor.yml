@@ -52,9 +52,9 @@ jobs:
         uses: actions/cache@v6
         with:
           path: ~/.cache/kicad-visor
-          # A new key whenever the boards, the settings or what is exported
-          # change, so newly rendered frames get saved.
-          key: kicad-visor-${{ env.ONLY }}-${{ hashFiles('**/*.kicad_pcb', 'kicad-visor-config.py') }}
+          # A new key whenever the boards, the settings or this workflow
+          # (what is exported) change, so newly rendered frames get saved.
+          key: kicad-visor-${{ hashFiles('**/*.kicad_pcb', 'kicad-visor-config.py', '.github/workflows/*.yml') }}
           restore-keys: kicad-visor-
 
       # An invisible display, in case kicad-cli's 3D renderer wants one.
