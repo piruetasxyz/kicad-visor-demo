@@ -37,14 +37,14 @@ jobs:
       # What to export. Add ",turntable" for videos: the first run renders
       # for tens of minutes per board; later runs reuse the cached frames
       # until a board changes.
-      ONLY: schematic,pcb,render
+      ONLY: schematic,pcb,render,turntable
     steps:
       - name: Install kicad-visor
         run: |
           apt-get update
           apt-get install -y --no-install-recommends ffmpeg librsvg2-bin python3-venv git xvfb xauth
           python3 -m venv /opt/kicad-visor
-          /opt/kicad-visor/bin/pip install git+https://github.com/piruetasxyz/kicad-visor@v0.0.2
+          /opt/kicad-visor/bin/pip install git+https://github.com/piruetasxyz/kicad-visor@v0.0.3
 
       - uses: actions/checkout@v7
 
@@ -52,7 +52,9 @@ jobs:
         uses: actions/cache@v6
         with:
           path: ~/.cache/kicad-visor
-          key: kicad-visor-${{ hashFiles('**/*.kicad_pcb') }}
+          # A new key whenever the boards, the settings or what is exported
+          # change, so newly rendered frames get saved.
+          key: kicad-visor-${{ env.ONLY }}-${{ hashFiles('**/*.kicad_pcb', 'kicad-visor-config.py') }}
           restore-keys: kicad-visor-
 
       # An invisible display, in case kicad-cli's 3D renderer wants one.
