@@ -1,0 +1,74 @@
+# Publishes the docs of every KiCad project in a repository to GitHub Pages,
+# on every push to main: schematics, board views, 3D renders and, if enabled,
+# turntable videos, with web pages to browse them.
+#
+# Setup, once per repository:
+#   1. Copy this file to .github/workflows/kicad-visor.yml
+#   2. Settings > Pages > Build and deployment > Source: "GitHub Actions"
+#
+# kicad-visor reads kicad-visor-config.py at the root of the repository, if
+# there is one, so the site matches what you export locally.
+
+name: kicad-visor
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # KiCad 10 with its 3D models. Use the major version your boards were
+    # saved with: kicad-cli can't open files from a newer KiCad.
+    container:
+      image: kicad/kicad:10.0-full
+      options: --user root
+    env:
+      # What to export. Add ",turntable" for videos: the first run renders
+      # for tens of minutes per board; later runs reuse the cached frames
+      # until a board changes.
+      ONLY: schematic,pcb,render
+    steps:
+      - name: Install kicad-visor
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends ffmpeg librsvg2-bin python3-venv git xvfb xauth
+          python3 -m venv /opt/kicad-visor
+          /opt/kicad-visor/bin/pip install git+https://github.com/piruetasxyz/kicad-visor@v0.0.2
+
+      - uses: actions/checkout@v7
+
+      - name: Restore rendered frames
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/kicad-visor
+          key: kicad-visor-${{ hashFiles('**/*.kicad_pcb') }}
+          restore-keys: kicad-visor-
+
+      # An invisible display, in case kicad-cli's 3D renderer wants one.
+      - name: Export
+        run: xvfb-run -a /opt/kicad-visor/bin/kicad-visor export . --output _site --only "$ONLY"
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
