@@ -1,4 +1,0 @@
-(design_block_lib_table
-	(version 7)
-	(lib (name "popusintes") (type "KiCad") (uri "${KIPRJMOD}/../../bibliotecas/popusintes.kicad_blocks") (options "") (descr "bloques reutilizables de popusintes"))
-)

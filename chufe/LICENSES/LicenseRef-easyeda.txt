@@ -1,0 +1,22 @@
+EasyEDA / LCSC / JLCPCB Component Library Notice
+
+The files in the ./terceros folder of this repository (schematic symbol,
+PCB footprint and 3D models for the URA2412YMD-20WR3 DC-DC converter,
+LCSC part C5369773) were downloaded from the EasyEDA / LCSC / JLCPCB
+component library and converted to KiCad format with easyeda2kicad
+(https://github.com/uPesy/easyeda2kicad.py).
+
+They are not the work of piruetas SpA / Aarón Montoya-Moraga. Copyright
+belongs to EasyEDA and its licensors, which may include the component
+manufacturer. No open source license is granted for these files, and they
+are not covered by the licenses that apply to the rest of this project.
+
+Their use is governed by the EasyEDA Terms & Conditions:
+https://easyeda.com/legal
+
+They are included only so that the KiCad project opens without external
+dependencies. If you redistribute this project, you are responsible for
+making sure your use of these files complies with those terms. You can
+regenerate them with:
+
+    easyeda2kicad --full --lcsc_id=C5369773

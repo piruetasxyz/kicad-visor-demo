@@ -1,0 +1,4 @@
+(fp_lib_table
+	(version 7)
+	(lib (name "easyeda2kicad") (type "KiCad") (uri "${KIPRJMOD}/../../terceros/easyeda2kicad.pretty") (options "") (descr "huellas convertidas desde EasyEDA con easyeda2kicad"))
+)

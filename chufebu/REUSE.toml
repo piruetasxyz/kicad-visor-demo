@@ -1,0 +1,28 @@
+version = 1
+
+[[annotations]]
+path = "hardware/**"
+SPDX-FileCopyrightText = "2026 piruetas SpA / Aarón Montoya-Moraga"
+SPDX-License-Identifier = "CERN-OHL-P-2.0"
+
+[[annotations]]
+path = ["panel/**", "docs/**"]
+SPDX-FileCopyrightText = "2026 piruetas SpA / Aarón Montoya-Moraga"
+SPDX-License-Identifier = "CC-BY-SA-4.0"
+
+# Las capturas y los renders 3D son vistas del diseño de hardware, así que
+# llevan su licencia.
+[[annotations]]
+path = ["docs/images/**", "docs/videos/**"]
+SPDX-FileCopyrightText = "2026 piruetas SpA / Aarón Montoya-Moraga"
+SPDX-License-Identifier = "CERN-OHL-P-2.0"
+
+[[annotations]]
+path = "branding/**"
+SPDX-FileCopyrightText = "2026 piruetas SpA / Aarón Montoya-Moraga"
+SPDX-License-Identifier = "LicenseRef-piruetas-branding"
+
+[[annotations]]
+path = ["README.md", "LICENSE.md", "REUSE.toml", ".gitignore", "requirements.txt", "kicad-retrata.yml", ".github/**"]
+SPDX-FileCopyrightText = "2026 piruetas SpA / Aarón Montoya-Moraga"
+SPDX-License-Identifier = "CC-BY-SA-4.0"

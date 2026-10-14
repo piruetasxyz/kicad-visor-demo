@@ -1,0 +1,15 @@
+piruetas Logo and Branding License
+
+Copyright (c) 2026 piruetas SpA / Aarón Montoya-Moraga.
+All rights reserved.
+
+The piruetas name, logo, and branding are used throughout this project.
+They are not covered by the open source licenses that apply to the rest
+of this project.
+
+You may not distribute derivative works or products bearing the piruetas
+logo or branding. Derivative works should remove piruetas branding and
+use their own name and logo.
+
+You may use the piruetas name in plain text to accurately describe the
+origin of a derivative work, for example "based on [name of project] by piruetas".
